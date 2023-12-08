@@ -1,15 +1,31 @@
 import { Link } from "react-router-dom";
 import login from '../../assets/images/login/login.svg'
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
+
 
 const SignUp = () => {
+    const { createUser } = useContext(AuthContext)
+
 
     const handleSign = (event) => {
         event.preventDefault()
         const form = event.target;
+        const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password)
+        console.log(name, email, password)
         // console.log(user)
+
+        // create user
+        createUser(email, password)
+            .then(result => {
+                const user = result.user
+                console.log(user)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -20,6 +36,12 @@ const SignUp = () => {
                 <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <h1 className="text-5xl font-bold text-center mt-4">Login now!</h1>
                     <form onSubmit={handleSign} className="card-body">
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Name</span>
+                            </label>
+                            <input type="text" name="name" placeholder="email" className="input input-bordered" required />
+                        </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -39,7 +61,7 @@ const SignUp = () => {
                             <button className="btn btn-primary">Login</button>
                         </div>
                     </form>
-                    <p className='my-4 text-center'>Already have an account <Link className='text-orange-400' to="/signUp">Login</Link></p>
+                    <p className='my-4 text-center'>Already have an account <Link className='text-orange-400' to="/login">Login</Link></p>
                 </div>
             </div>
         </div>
