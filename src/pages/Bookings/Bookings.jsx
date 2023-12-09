@@ -9,7 +9,7 @@ const Bookings = () => {
     const { user } = useContext(AuthContext);
     const [bookings, setBookings] = useState([]);
 
-    const url = `http://localhost:5000/bookings?email=${user.email}`;
+    const url = `http://localhost:3000/bookings?email=${user.email}`;
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
@@ -19,7 +19,7 @@ const Bookings = () => {
     const handleDelete = id => {
         const proceed = confirm('Are you sure you want to delete')
         if (proceed) {
-            fetch(`http://localhost:5000/bookings/${id}`, {
+            fetch(`http://localhost:3000/bookings/${id}`, {
                 method: "DELETE"
             })
                 .then(res => res.json())
@@ -36,7 +36,7 @@ const Bookings = () => {
     const handleUpdate = id => {
         const proceed = confirm('Are you sure you want to Update')
         if (proceed) {
-            fetch(`http://localhost:5000/bookings/${id}`, {
+            fetch(`http://localhost:3000/bookings/${id}`, {
                 method: "PATCH",
                 headers: {
                     'content-type': 'application/json'
@@ -49,7 +49,10 @@ const Bookings = () => {
                     if (data.modifiedCount > 0) {
                         alert('Update successfully')
                         const remaining = bookings.filter(booking => booking._id !== id);
-                        setBookings(remaining)
+                        const update = bookings.find(booking => booking._id === id);
+                        update.stringify = 'confirm'
+                        const newBooking = [update, ...remaining]
+                        setBookings(newBooking)
                     }
                 })
         }
