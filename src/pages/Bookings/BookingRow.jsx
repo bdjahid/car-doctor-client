@@ -1,23 +1,9 @@
 
 
-const BookingRow = ({ booking }) => {
+const BookingRow = ({ booking, handleDelete, handleUpdate }) => {
     const { _id, date, services, price, img } = booking;
 
-    const handleDelete = id => {
-        const proceed = confirm('Are you sure you want to delete')
-        if (proceed) {
-            fetch(`http://localhost:5000/bookings/${id}`, {
-                method: "DELETE"
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    if (data.deletedCount > 0) {
-                        alert('deleted successfully')
-                    }
-                })
-        }
-    }
+
     return (
         <tr>
             <th>
@@ -38,7 +24,7 @@ const BookingRow = ({ booking }) => {
             <td>{date}</td>
             <td>${price}</td>
             <th>
-                <button className="btn btn-ghost btn-xs">details</button>
+                <button onClick={() => handleUpdate(_id)} className="btn btn-ghost btn-xs">Confirm</button>
             </th>
         </tr>
     );
