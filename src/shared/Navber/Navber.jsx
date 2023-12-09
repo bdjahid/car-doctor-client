@@ -18,7 +18,10 @@ const Navber = () => {
         <li><NavLink to='/blogs'>Blogs</NavLink></li>
         <li><NavLink to='/contact'>Contact</NavLink></li>
         {
-            user?.email ? <li><button onClick={handleLogOut}>Log Out</button></li>
+            user?.email ? <>
+                <li><NavLink to='/bookings'>Bookings</NavLink></li>
+                <li><button onClick={handleLogOut}>Log Out</button></li>
+            </>
                 :
                 <li><Link to="/login">Login</Link></li>
         }
