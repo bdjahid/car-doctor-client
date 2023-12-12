@@ -58,7 +58,7 @@ const SignUp = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn btn-primary">Login</button>
+                            <button className="btn btn-primary">Sign Up</button>
                         </div>
                     </form>
                     <p className='my-4 text-center'>Already have an account <Link className='text-orange-400' to="/login">Login</Link></p>
